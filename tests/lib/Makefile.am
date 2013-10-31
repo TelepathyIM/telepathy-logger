@@ -5,6 +5,7 @@ libtp_logger_tests_la_SOURCES = \
     contacts-conn.h \
     contact-list-manager.c \
     contact-list-manager.h \
+    debug.h \
     room-list-chan.c \
     room-list-chan.h \
     simple-account.c		\
