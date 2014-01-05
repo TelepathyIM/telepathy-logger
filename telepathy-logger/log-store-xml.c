@@ -1365,7 +1365,7 @@ log_store_xml_get_events_for_file (TplLogStoreXml *self,
   ctxt = xmlNewParserCtxt ();
 
   /* Parse and validate the file. */
-  doc = xmlCtxtReadFile (ctxt, filename, NULL, 0);
+  doc = xmlCtxtReadFile (ctxt, filename, NULL, XML_PARSE_RECOVER);
   if (!doc)
     {
       g_warning ("Failed to parse file:'%s'", filename);
