@@ -1,3 +1,10 @@
+telepathy-logger 0.8.1 (2013-08-25)
+===================================
+
+Fixes:
+
+• Fix a leak in log-store-xml (fd.o#54814, Guillaume)
+
 telepathy-logger 0.8.0 (2013-01-21)
 ===================================
 
