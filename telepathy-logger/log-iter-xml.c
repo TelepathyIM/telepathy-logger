@@ -81,8 +81,12 @@ tpl_log_iter_xml_get_events (TplLogIter *iter,
               priv->account, priv->target, priv->type_mask,
               (GDate *) priv->next_date->data);
 
-          priv->next_event = g_list_last (priv->events);
           priv->next_date = g_list_previous (priv->next_date);
+
+          if (priv->events == NULL)
+            continue;
+
+          priv->next_event = g_list_last (priv->events);
         }
 
       event = TPL_EVENT (priv->next_event->data);
