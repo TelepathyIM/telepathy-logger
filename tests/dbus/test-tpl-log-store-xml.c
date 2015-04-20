@@ -119,7 +119,7 @@ test_clear (XmlTestCaseFixture *fixture,
       TPL_EVENT_MASK_TEXT);
 
   g_assert (hits != NULL);
-  g_assert_cmpint (g_list_length (hits), ==, 4);
+  g_assert_cmpint (g_list_length (hits), ==, 5);
 
   tpl_log_manager_search_free (hits);
 
