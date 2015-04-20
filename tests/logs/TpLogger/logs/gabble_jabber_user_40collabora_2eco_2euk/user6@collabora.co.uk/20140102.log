@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<?xml-stylesheet type="text/xsl" href="log-store-xml.xsl"?>
+<log>
+<message time='20140102T16:27:50' cm_id='456' id='user6@collabora.co.uk' name='User6' token='' isuser='false' type='normal'>&#x8;</message>
+<message time='20140102T16:27:51' cm_id='456' id='user6@collabora.co.uk' name='User6' token='' isuser='false' type='normal'>3&#x8;4</message>
+</log>
