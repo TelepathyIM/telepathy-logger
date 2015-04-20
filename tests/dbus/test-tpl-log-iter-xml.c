@@ -87,7 +87,7 @@ static void
 test_get_events (XmlTestCaseFixture *fixture,
     gconstpointer user_data)
 {
-  TplEntity *user2, *user4;
+  TplEntity *user2, *user4, *user6;
   TplLogIter *iter;
   GList *events;
   GError *error = NULL;
@@ -100,6 +100,9 @@ test_get_events (XmlTestCaseFixture *fixture,
 
   user4 = tpl_entity_new ("user4@collabora.co.uk", TPL_ENTITY_CONTACT,
       "User4", "");
+
+  user6 = tpl_entity_new ("user6@collabora.co.uk", TPL_ENTITY_CONTACT,
+      "User6", "");
 
   /* Text events spanning multiple days */
   iter = tpl_log_iter_xml_new (fixture->store, fixture->account, user2,
@@ -231,8 +234,49 @@ test_get_events (XmlTestCaseFixture *fixture,
 
   g_object_unref (iter);
 
+  /* Files with invalid XML */
+  iter = tpl_log_iter_xml_new (fixture->store, fixture->account, user6,
+      TPL_EVENT_MASK_ANY);
+
+  events = tpl_log_iter_get_events (iter, 2, &error);
+  g_assert_no_error (error);
+  g_assert (events != NULL);
+  g_assert_cmpint (g_list_length (events), ==, 2);
+  timestamp = tpl_event_get_timestamp (TPL_EVENT (events->data));
+  g_assert_cmpint (timestamp, ==, 1388680071);
+  message = tpl_text_event_get_message (TPL_TEXT_EVENT (events->data));
+  g_assert_cmpstr (message, ==, "34");
+  g_list_free_full (events, g_object_unref);
+
+  events = tpl_log_iter_get_events (iter, 1, &error);
+  g_assert_no_error (error);
+  g_assert (events != NULL);
+  g_assert_cmpint (g_list_length (events), ==, 1);
+  timestamp = tpl_event_get_timestamp (TPL_EVENT (events->data));
+  g_assert_cmpint (timestamp, ==, 1388680070);
+  message = tpl_text_event_get_message (TPL_TEXT_EVENT (events->data));
+  g_assert_cmpstr (message, ==, "");
+  g_list_free_full (events, g_object_unref);
+
+  events = tpl_log_iter_get_events (iter, 2, &error);
+  g_assert_no_error (error);
+  g_assert (events != NULL);
+  g_assert_cmpint (g_list_length (events), ==, 2);
+  timestamp = tpl_event_get_timestamp (TPL_EVENT (events->data));
+  g_assert_cmpint (timestamp, ==, 1388568367);
+  message = tpl_text_event_get_message (TPL_TEXT_EVENT (events->data));
+  g_assert_cmpstr (message, ==, "1");
+  g_list_free_full (events, g_object_unref);
+
+  events = tpl_log_iter_get_events (iter, 2, &error);
+  g_assert_no_error (error);
+  g_assert (events == NULL);
+
+  g_object_unref (iter);
+
   g_object_unref (user2);
   g_object_unref (user4);
+  g_object_unref (user6);
 }
 
 
