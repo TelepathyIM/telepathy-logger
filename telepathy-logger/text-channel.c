@@ -525,6 +525,15 @@ store_pending_messages (TplTextChannel *self)
     {
       GList *it;
 
+      /* The list in pending_messages was ordered by arrival
+       * (pending_message_id), then it was prepended to to_log one by one, so
+       * we need te reverse it to get back the original order.
+       */
+      to_log = g_list_reverse (to_log);
+      /* Sort by time stamp in case the messages arrive in a messed up order.
+       * g_list_sort is stable, so messages that arrive at the same time stamp
+       * (e.g. from a bouncer) will not lose their original order.
+       */
       to_log = g_list_sort (to_log,
           (GCompareFunc) pending_message_compare_timestamp);
 
