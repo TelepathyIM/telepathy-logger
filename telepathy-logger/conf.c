@@ -127,7 +127,7 @@ tpl_conf_constructor (GType type,
 
   if (conf_singleton != NULL)
     {
-      retval = g_object_ref (conf_singleton);
+      retval = g_object_ref (G_OBJECT (conf_singleton));
     }
   else
     {

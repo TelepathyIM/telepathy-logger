@@ -159,7 +159,7 @@ log_manager_constructor (GType type,
   GObject *retval = NULL;
 
   if (G_LIKELY (manager_singleton))
-    retval = g_object_ref (manager_singleton);
+    retval = g_object_ref (G_OBJECT (manager_singleton));
   else
     {
       retval = G_OBJECT_CLASS (tpl_log_manager_parent_class)->constructor (

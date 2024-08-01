@@ -96,7 +96,7 @@ favourite_contact_closure_new (TplDBusService *self,
   FavouriteContactClosure *closure;
 
   closure = g_slice_new0 (FavouriteContactClosure);
-  closure->service = g_object_ref (G_OBJECT (self));
+  closure->service = TPL_DBUS_SERVICE (g_object_ref (G_OBJECT (self)));
   closure->account = g_strdup (account);
   closure->contact_id = g_strdup (contact_id);
   /* XXX: ideally we'd up the ref count or duplicate this */
